@@ -1,0 +1,32 @@
+{
+  "name": "@3beeepb/react-native-range-slider",
+  "version": "1.0.0",
+  "description": "Cross Platform (iOS / Android) implementation of Range Slider for React Native",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3beeepb/react-native-range-slider.git"
+  },
+  "keywords": [
+    "react-component",
+    "react",
+    "react-native",
+    "ios",
+    "android",
+    "keyboard",
+    "range-slider",
+    "range",
+    "slider",
+    "seekbar",
+    "react-native-range-slider"
+  ],
+  "author": "Pavel Vladimiroff <pavel.vladimiroff@gmail.com> (https://github.com/3beeepb)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/3beeepb/react-native-range-slider/issues"
+  },
+  "homepage": "https://github.com/3beeepb/react-native-range-slider#readme"
+}
