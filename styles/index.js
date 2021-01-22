@@ -24,5 +24,21 @@ export default StyleSheet.create({
     },
     touchableArea: {
         ...StyleSheet.absoluteFillObject
-    }
+    },
+    rail: {
+		flex:1,
+		height:2,
+		borderRadius:4,
+		backgroundColor:'#ccc'
+	},
+	railSelected: {
+		height:2,
+		backgroundColor:'#00a8dd'
+	},
+	thumb: {
+		width:26,
+		height:26,
+		borderRadius:50,
+		backgroundColor:'#00a8dd'
+	}
 });

@@ -2,8 +2,6 @@ import React, {memo,useState,useEffect,useCallback,useMemo,useRef } from 'react'
 import {Animated,PanResponder,View,ViewPropTypes} from 'react-native';
 import PropTypes from 'prop-types';
 
-// containers
-
 // hooks
 import {useThumbFollower,useLowHigh,useWidthLayout,useLabelContainerProps,useSelectedRail} from './hooks';
 
@@ -21,8 +19,8 @@ const RangeSlider = (
         min,
         max,
         step,
-        low: lowProp,
-        high: highProp,
+        low:lowProp,
+        high:highProp,
         floatingLabel,
         allowLabelOverflow,
         disableRange,
@@ -37,22 +35,27 @@ const RangeSlider = (
         ...restProps
     }
 ) => {
-  const {inPropsRef,inPropsRefPrev,setLow,setHigh } = useLowHigh(lowProp, disableRange ? max : highProp, min, max, step);
-  const lowThumbXRef = useRef(new Animated.Value(0));
-  const highThumbXRef = useRef(new Animated.Value(0));
-  const pointerX = useRef(new Animated.Value(0)).current;
-  const {current:lowThumbX} = lowThumbXRef;
-  const {current:highThumbX} = highThumbXRef;
+    step = step|| 1;
+    renderThumb = renderThumb || <View style={styles.thumb} />;
+    renderRail = renderRail || <View style={styles.rail} />;
+    renderRailSelected = renderRailSelected || <View style={styles.railSelected} />;
 
-  const gestureStateRef = useRef({isLow:true,lastValue:0,lastPosition:0});
-  const [isPressed,setPressed] = useState(false);
+    const {inPropsRef,inPropsRefPrev,setLow,setHigh} = useLowHigh(lowProp,disableRange?max:highProp,min,max,step);
+    const lowThumbXRef = useRef(new Animated.Value(0));
+    const highThumbXRef = useRef(new Animated.Value(0));
+    const pointerX = useRef(new Animated.Value(0)).current;
+    const {current:lowThumbX} = lowThumbXRef;
+    const {current:highThumbX} = highThumbXRef;
 
-  const containerWidthRef = useRef(0);
-  const [thumbWidth,setThumbWidth] = useState(0);
+    const gestureStateRef = useRef({isLow:true,lastValue:0,lastPosition:0});
+    const [isPressed,setPressed] = useState(false);
 
-  const [selectedRailStyle,updateSelectedRail] = useSelectedRail(inPropsRef,containerWidthRef,thumbWidth,disableRange);
+    const containerWidthRef = useRef(0);
+    const [thumbWidth,setThumbWidth] = useState(0);
 
-  const updateThumbs = useCallback(() => {
+    const [selectedRailStyle,updateSelectedRail] = useSelectedRail(inPropsRef,containerWidthRef,thumbWidth,disableRange);
+
+    const updateThumbs = useCallback(() => {
         const {current:containerWidth} = containerWidthRef;
         if (!thumbWidth || !containerWidth) return;
         const {low, high} = inPropsRef.current;
@@ -82,7 +85,6 @@ const RangeSlider = (
     }, [thumbWidth]);
 
     const lowStyles = useMemo(() => ({transform: [{translateX:lowThumbX}]}), [lowThumbX]);
-
     const highStyles = useMemo(() => (disableRange ? null : [styles.highThumbContainer,{transform:[{translateX:highThumbX}]}]),[disableRange,highThumbX]);
 
     const railContainerStyles = useMemo(() => ([styles.railsContainer,{marginHorizontal:thumbWidth/2}]), [thumbWidth]);
@@ -151,7 +153,6 @@ const RangeSlider = (
         onPanResponderMove: disabled ? undefined : Animated.event([null,{moveX:pointerX}],{useNativeDriver:false}),
 
         onPanResponderRelease: () => {
-            console.log(999999)
             onChange();
             setPressed(false);
         },
@@ -184,8 +185,8 @@ RangeSlider.propTypes = {
     ...ViewPropTypes,
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
-    step: PropTypes.number.isRequired,
-    renderThumb: PropTypes.func.isRequired,
+    step: PropTypes.number,
+    renderThumb: PropTypes.func,
     low: PropTypes.number,
     high: PropTypes.number,
     allowLabelOverflow: PropTypes.bool,
@@ -194,8 +195,8 @@ RangeSlider.propTypes = {
     floatingLabel: PropTypes.bool,
     renderLabel: PropTypes.func,
     renderNotch: PropTypes.func,
-    renderRail: PropTypes.func.isRequired,
-    renderRailSelected: PropTypes.func.isRequired,
+    renderRail: PropTypes.func,
+    renderRailSelected: PropTypes.func,
     onValueChanged: PropTypes.func,
     onChange: PropTypes.func
 };
