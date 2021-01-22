@@ -1,6 +1,6 @@
 # react-native-range-slider [![npm version](https://badge.fury.io/js/%403beeepb%2Freact-native-range-slider.svg)](https://badge.fury.io/js/%403beeepb%2Freact-native-range-slider) ![NPM](https://img.shields.io/npm/l/@3beeepb/react-native-range-slider) ![](https://img.shields.io/badge/platforms-android%20%7C%20ios-lightgrey)
 
-Cross Platform (iOS / Android) implementation of Range Slider for React Native.
+A cross-platform (iOS / Android) implementation of Range Slider for React Native.
 
 ## Installation
 
