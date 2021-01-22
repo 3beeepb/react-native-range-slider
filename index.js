@@ -2,6 +2,8 @@ import React, {memo,useState,useEffect,useCallback,useMemo,useRef } from 'react'
 import {Animated,PanResponder,View,ViewPropTypes} from 'react-native';
 import PropTypes from 'prop-types';
 
+// containers
+
 // hooks
 import {useThumbFollower,useLowHigh,useWidthLayout,useLabelContainerProps,useSelectedRail} from './hooks';
 
@@ -36,9 +38,10 @@ const RangeSlider = (
     }
 ) => {
     step = step || 1;
-    renderThumb = renderThumb ? renderThumb() : () => <View style={styles.thumb} />;
-    renderRail = renderRail ? renderRail() : () => <View style={styles.rail} />;
-    renderRailSelected = renderRailSelected ? renderRailSelected() : () => <View style={styles.railSelected} />;
+    //: renderThumb || <View style={styles.thumb} />
+    //: renderRail || <View style={styles.rail} />
+    //: renderRailSelected || <View style={styles.railSelected} />
+
 
     const {inPropsRef,inPropsRefPrev,setLow,setHigh} = useLowHigh(lowProp,disableRange?max:highProp,min,max,step);
     const lowThumbXRef = useRef(new Animated.Value(0));
@@ -85,6 +88,7 @@ const RangeSlider = (
     }, [thumbWidth]);
 
     const lowStyles = useMemo(() => ({transform: [{translateX:lowThumbX}]}), [lowThumbX]);
+
     const highStyles = useMemo(() => (disableRange ? null : [styles.highThumbContainer,{transform:[{translateX:highThumbX}]}]),[disableRange,highThumbX]);
 
     const railContainerStyles = useMemo(() => ([styles.railsContainer,{marginHorizontal:thumbWidth/2}]), [thumbWidth]);
