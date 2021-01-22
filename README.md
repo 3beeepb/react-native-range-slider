@@ -12,38 +12,37 @@ RangeSlider uses react hooks, so this component doesn't work with React Native v
 
 1. Import the library
 
-```js
-import RangeSlider from '@3beeepb/react-native-range-slider';
-```
+    ```js
+    import RangeSlider from '@3beeepb/react-native-range-slider';
+    ```
 
 2. Just use it like this:
 
-* Handler callback
+- Handler callback
 
-```js
-const handleValueChange = useCallback((low, high, isUpdate) => {
-  if (isUpdate) {
-    setLow(low);
-    setHigh(high);
-  }
-}, []);
+    ```js
+    const handleValueChange = useCallback((low, high, isUpdate) => {
+      if (isUpdate) {
+        setLow(low);
+        setHigh(high);
+      }
+    }, []);
+    const handleChange = useCallback(() => {
+      // release thumb
+    }, []);
+    ```
 
-const handleChange = useCallback(() => {
-  // release thumb
-}, []);
-```
+- JSX
 
-* JSX
-
-```jsx
-<Slider
-  style={styles.slider}
-  min={0}
-  max={100}
-  onChange={handleChange}
-  onValueChanged={handleValueChange}
-/>
-```
+    ```jsx
+    <Slider
+      style={styles.slider}
+      min={0}
+      max={100}
+      onChange={handleChange}
+      onValueChanged={handleValueChange}
+    />
+    ```
 
 ### Properties
 
