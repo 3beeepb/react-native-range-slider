@@ -35,10 +35,10 @@ const RangeSlider = (
         ...restProps
     }
 ) => {
-    step = step|| 1;
-    renderThumb = renderThumb || <View style={styles.thumb} />;
-    renderRail = renderRail || <View style={styles.rail} />;
-    renderRailSelected = renderRailSelected || <View style={styles.railSelected} />;
+    step = step || 1;
+    renderThumb = renderThumb ? renderThumb() : () => <View style={styles.thumb} />;
+    renderRail = renderRail ? renderRail() : () => <View style={styles.rail} />;
+    renderRailSelected = renderRailSelected ? renderRailSelected() : () => <View style={styles.railSelected} />;
 
     const {inPropsRef,inPropsRefPrev,setLow,setHigh} = useLowHigh(lowProp,disableRange?max:highProp,min,max,step);
     const lowThumbXRef = useRef(new Animated.Value(0));
