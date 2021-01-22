@@ -1,6 +1,6 @@
 {
     "name": "@3beeepb/react-native-range-slider",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Cross Platform (iOS / Android) implementation of Range Slider for React Native",
     "main": "index.js",
     "scripts": {

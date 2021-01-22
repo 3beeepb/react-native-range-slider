@@ -37,12 +37,6 @@ const RangeSlider = (
         ...restProps
     }
 ) => {
-    step = step || 1;
-    //: renderThumb || <View style={styles.thumb} />
-    //: renderRail || <View style={styles.rail} />
-    //: renderRailSelected || <View style={styles.railSelected} />
-
-
     const {inPropsRef,inPropsRefPrev,setLow,setHigh} = useLowHigh(lowProp,disableRange?max:highProp,min,max,step);
     const lowThumbXRef = useRef(new Animated.Value(0));
     const highThumbXRef = useRef(new Animated.Value(0));
@@ -88,7 +82,6 @@ const RangeSlider = (
     }, [thumbWidth]);
 
     const lowStyles = useMemo(() => ({transform: [{translateX:lowThumbX}]}), [lowThumbX]);
-
     const highStyles = useMemo(() => (disableRange ? null : [styles.highThumbContainer,{transform:[{translateX:highThumbX}]}]),[disableRange,highThumbX]);
 
     const railContainerStyles = useMemo(() => ([styles.railsContainer,{marginHorizontal:thumbWidth/2}]), [thumbWidth]);
@@ -189,7 +182,7 @@ RangeSlider.propTypes = {
     ...ViewPropTypes,
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
-    step: PropTypes.number,
+    step: PropTypes.number.isRequired,
     renderThumb: PropTypes.func,
     low: PropTypes.number,
     high: PropTypes.number,
