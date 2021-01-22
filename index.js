@@ -1,4 +1,4 @@
-import React, {memo,useState,useEffect,useCallback,useMemo,useRef } from 'react';
+import React, {memo,useState,useEffect,useCallback,useMemo,useRef} from 'react';
 import {Animated,PanResponder,View,ViewPropTypes} from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -37,6 +37,16 @@ const RangeSlider = (
         ...restProps
     }
 ) => {
+    const renderThumbDefault = () => <View style={styles.thumb} />;
+    const renderRailDefault = () => <View style={styles.rail} />;
+    const renderRailSelectedDefault = () => <View style={styles.railSelected} />;
+
+    renderThumb = renderThumb ? renderThumb : renderThumbDefault;
+    renderRail = renderRail ? renderRail : renderRailDefault;
+    renderRailSelected = renderRailSelected ? renderRailSelected : renderRailSelectedDefault;
+
+    step = step || 1;
+
     const {inPropsRef,inPropsRefPrev,setLow,setHigh} = useLowHigh(lowProp,disableRange?max:highProp,min,max,step);
     const lowThumbXRef = useRef(new Animated.Value(0));
     const highThumbXRef = useRef(new Animated.Value(0));
@@ -65,7 +75,7 @@ const RangeSlider = (
         const lowPosition = (low - min) / (max - min) * (containerWidth - thumbWidth);
         lowThumbX.setValue(lowPosition);
         updateSelectedRail();
-        onValueChanged(low, high, false);
+        onValueChanged(low,high,false);
     }, [disableRange,inPropsRef,max,min,onValueChanged,thumbWidth,updateSelectedRail]);
 
     useEffect(() => {
@@ -93,7 +103,7 @@ const RangeSlider = (
 
     const labelContainerProps = useLabelContainerProps(floatingLabel);
 
-    const { panHandlers } = useMemo(() => PanResponder.create({
+    const {panHandlers} = useMemo(() => PanResponder.create({
         onStartShouldSetPanResponder: trueFunc,
         onStartShouldSetPanResponderCapture: trueFunc,
         onMoveShouldSetPanResponder: trueFunc,
@@ -102,7 +112,7 @@ const RangeSlider = (
         onPanResponderTerminate: trueFunc,
         onShouldBlockNativeResponder: trueFunc,
 
-        onPanResponderGrant: ({ nativeEvent }, gestureState) => {
+        onPanResponderGrant: ({nativeEvent}, gestureState) => {
             if (disabled) return;
 
             const {numberActiveTouches} = gestureState;
@@ -128,7 +138,7 @@ const RangeSlider = (
                 const {low,high,min,max,step} = inPropsRef.current;
                 const minValue = isLow ? min : low;
                 const maxValue = isLow ? high : max;
-                const value = clamp(getValueForPosition(positionInView, containerWidth, thumbWidth, min, max, step), minValue, maxValue);
+                const value = clamp(getValueForPosition(positionInView,containerWidth,thumbWidth,min,max,step),minValue,maxValue);
 
                 if (gestureStateRef.current.lastValue === value) return;
 
@@ -138,8 +148,8 @@ const RangeSlider = (
                 (isLow ? lowThumbX : highThumbX).setValue(absolutePosition);
                 onValueChanged(isLow ? value : low, isLow ? high : value, true);
                 (isLow ? setLow : setHigh)(value);
-                labelUpdate && labelUpdate(gestureStateRef.current.lastPosition, value);
-                notchUpdate && notchUpdate(gestureStateRef.current.lastPosition, value);
+                labelUpdate && labelUpdate(gestureStateRef.current.lastPosition,value);
+                notchUpdate && notchUpdate(gestureStateRef.current.lastPosition,value);
                 updateSelectedRail();
             };
             handlePositionChange(downX);
@@ -150,7 +160,7 @@ const RangeSlider = (
         onPanResponderMove: disabled ? undefined : Animated.event([null,{moveX:pointerX}],{useNativeDriver:false}),
 
         onPanResponderRelease: () => {
-            onChange();
+            if (onChange) onChange();
             setPressed(false);
         },
     }), [pointerX,inPropsRef,thumbWidth,disableRange,disabled,onValueChanged,onChange,setLow,setHigh,labelUpdate,notchUpdate,updateSelectedRail]);
@@ -182,7 +192,7 @@ RangeSlider.propTypes = {
     ...ViewPropTypes,
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
-    step: PropTypes.number.isRequired,
+    step: PropTypes.number,
     renderThumb: PropTypes.func,
     low: PropTypes.number,
     high: PropTypes.number,

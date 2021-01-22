@@ -28,7 +28,7 @@ export const useLowHigh = (lowProp, highProp, min, max, step) => {
     const validLowProp = lowProp === undefined ? min : clamp(lowProp, min, max);
     const validHighProp = highProp === undefined ? max : clamp(highProp, min, max);
     const inPropsRef = useRef({low:validLowProp,high:validHighProp });
-    const { ow:lowState,high:highState} = inPropsRef.current;
+    const {low:lowState,high:highState} = inPropsRef.current;
     const inPropsRefPrev = {lowPrev:lowState,highPrev:highState};
 
     // Props have higher priority.
