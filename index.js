@@ -2,8 +2,6 @@ import React, {memo,useState,useEffect,useCallback,useMemo,useRef} from 'react';
 import {Animated,PanResponder,View,ViewPropTypes} from 'react-native';
 import PropTypes from 'prop-types';
 
-// containers
-
 // hooks
 import {useThumbFollower,useLowHigh,useWidthLayout,useLabelContainerProps,useSelectedRail} from './hooks';
 
