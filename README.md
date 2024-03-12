@@ -2,6 +2,10 @@
 
 A cross-platform (iOS / Android) implementation of Range Slider for React Native.
 
+## Demo
+
+<img src="https://github.com/3beeepb/react-native-range-slider/assets/3652498/58148ff5-25aa-4263-8c91-8c4d0adc072a" width="300">
+
 ## Installation
 
 * npm: `npm install --save @3beeepb/react-native-range-slider --save`
