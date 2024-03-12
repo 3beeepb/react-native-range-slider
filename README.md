@@ -35,7 +35,7 @@ RangeSlider uses react hooks, so this component doesn't work with React Native v
 - JSX
 
     ```jsx
-    <Slider
+    <RangeSlider
       style={styles.slider}
       min={0}
       max={100}
